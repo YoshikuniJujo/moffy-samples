@@ -21,6 +21,18 @@ description:         Please see the README on GitHub at <https://github.com/Yosh
 
 dependencies:
 - base >= 4.7 && < 5
+- bytestring
+- text
+- unordered-containers
+- time
+- transformers
+- aeson
+- JuicyPixels
+- moffy
+- moffy-samples-events
+- type-set
+- type-flip
+- extra-data-yj
 
 ghc-options:
 - -Wall
@@ -35,17 +47,6 @@ ghc-options:
 
 library:
   source-dirs: src
-
-executables:
-  moffy-samples-exe:
-    main:                Main.hs
-    source-dirs:         app
-    ghc-options:
-    - -threaded
-    - -rtsopts
-    - -with-rtsopts=-N
-    dependencies:
-    - moffy-samples
 
 tests:
   moffy-samples-test:

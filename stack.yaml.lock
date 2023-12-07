@@ -3,7 +3,25 @@
 # For more information, please see the documentation at:
 #   https://docs.haskellstack.org/en/stable/lock_files
 
-packages: []
+packages:
+- completed:
+    commit: b0be6f272f3c76e161c44855c2c23ff98dd5208c
+    git: https://github.com/YoshikuniJujo/moffy-samples-events
+    name: moffy-samples-events
+    pantry-tree:
+      sha256: 9b6897a4fba1b24415ebf14014058d3b2e600c4eb7305bc6409d55c7d135b13e
+      size: 2113
+    version: 0.1.0.0
+  original:
+    commit: b0be6f272f3c76e161c44855c2c23ff98dd5208c
+    git: https://github.com/YoshikuniJujo/moffy-samples-events
+- completed:
+    hackage: union-color-0.1.2.1@sha256:0d8cd13f3fbe8135f34244f9847b415635d6066b06c92203fdb521a36cdaeae8,1326
+    pantry-tree:
+      sha256: 7df303497f2479607876d561c5b48000d05bc22eabed3c4d84426440e4d5717a
+      size: 429
+  original:
+    hackage: union-color-0.1.2.1
 snapshots:
 - completed:
     sha256: ea200ce76bd0713b746001f1acaa55541d9ee936c668251b5f5d83e7848b8fff

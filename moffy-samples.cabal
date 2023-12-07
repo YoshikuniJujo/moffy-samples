@@ -27,6 +27,8 @@ source-repository head
 
 library
   exposed-modules:
+      Control.Moffy.Samples.Boxes
+      Control.Moffy.Samples.Followbox
       Lib
   other-modules:
       Paths_moffy_samples
@@ -36,21 +38,19 @@ library
       src
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
   build-depends:
-      base >=4.7 && <5
-  default-language: Haskell2010
-
-executable moffy-samples-exe
-  main-is: Main.hs
-  other-modules:
-      Paths_moffy_samples
-  autogen-modules:
-      Paths_moffy_samples
-  hs-source-dirs:
-      app
-  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
-  build-depends:
-      base >=4.7 && <5
-    , moffy-samples
+      JuicyPixels
+    , aeson
+    , base >=4.7 && <5
+    , bytestring
+    , extra-data-yj
+    , moffy
+    , moffy-samples-events
+    , text
+    , time
+    , transformers
+    , type-flip
+    , type-set
+    , unordered-containers
   default-language: Haskell2010
 
 test-suite moffy-samples-test
@@ -64,6 +64,18 @@ test-suite moffy-samples-test
       test
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      base >=4.7 && <5
+      JuicyPixels
+    , aeson
+    , base >=4.7 && <5
+    , bytestring
+    , extra-data-yj
+    , moffy
     , moffy-samples
+    , moffy-samples-events
+    , text
+    , time
+    , transformers
+    , type-flip
+    , type-set
+    , unordered-containers
   default-language: Haskell2010
