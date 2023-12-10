@@ -5,16 +5,12 @@
 
 packages:
 - completed:
-    commit: b0be6f272f3c76e161c44855c2c23ff98dd5208c
-    git: https://github.com/YoshikuniJujo/moffy-samples-events
-    name: moffy-samples-events
+    hackage: moffy-samples-events-0.2.1.0@sha256:3811265f145b0a73ab515cf3e927ad09b0f6c21a16c1dab092e572322bb81179,3178
     pantry-tree:
-      sha256: 9b6897a4fba1b24415ebf14014058d3b2e600c4eb7305bc6409d55c7d135b13e
-      size: 2113
-    version: 0.1.0.0
+      sha256: c9a95b1fe13f3cb6dd26007f37d9d11a110bdd20e9bf1cb38e80dea0a728e854
+      size: 2064
   original:
-    commit: b0be6f272f3c76e161c44855c2c23ff98dd5208c
-    git: https://github.com/YoshikuniJujo/moffy-samples-events
+    hackage: moffy-samples-events-0.2.1.0
 - completed:
     hackage: union-color-0.1.2.1@sha256:0d8cd13f3fbe8135f34244f9847b415635d6066b06c92203fdb521a36cdaeae8,1326
     pantry-tree:
