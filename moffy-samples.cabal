@@ -5,7 +5,7 @@ cabal-version: 2.2
 -- see: https://github.com/sol/hpack
 
 name:           moffy-samples
-version:        0.1.0.1
+version:        0.1.0.2
 synopsis:       Samples of moffy
 description:    Please see the README on GitHub at <https://github.com/YoshikuniJujo/moffy-samples#readme>
 category:       Control
@@ -29,6 +29,8 @@ library
   exposed-modules:
       Control.Moffy.Samples.Boxes
       Control.Moffy.Samples.Followbox
+      Control.Moffy.Samples.FollowboxAnother
+      Control.Moffy.Samples.FollowboxOrigin
   other-modules:
       Paths_moffy_samples
   autogen-modules:
@@ -42,6 +44,7 @@ library
     , base >=4.7 && <5
     , bytestring
     , extra-data-yj
+    , hashable
     , moffy
     , moffy-samples-events
     , text
@@ -68,6 +71,7 @@ test-suite moffy-samples-test
     , base >=4.7 && <5
     , bytestring
     , extra-data-yj
+    , hashable
     , moffy
     , moffy-samples
     , moffy-samples-events

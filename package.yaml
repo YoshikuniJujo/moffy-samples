@@ -1,5 +1,5 @@
 name:                moffy-samples
-version:             0.1.0.1
+version:             0.1.0.2
 github:              "YoshikuniJujo/moffy-samples"
 license:             BSD-3-Clause
 author:              "Yoshikuni Jujo"
@@ -24,6 +24,7 @@ dependencies:
 - bytestring
 - text
 - unordered-containers
+- hashable
 - time
 - transformers
 - aeson
