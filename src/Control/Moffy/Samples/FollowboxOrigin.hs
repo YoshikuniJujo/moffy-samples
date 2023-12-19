@@ -10,31 +10,27 @@ module Control.Moffy.Samples.FollowboxOrigin (
 	followbox ) where
 
 import Prelude hiding (break, repeat, scanl)
-
 import Control.Arrow ((>>>))
 import Control.Monad (void, forever, (<=<))
-import Control.Moffy (React, adjust, emit, waitFor, break, indexBy, find, repeat, scanl)
-import Control.Moffy.Event.Lock (newLockId, withLock)
-import Control.Moffy.Samples.Event.Random (getRandomR)
-import Control.Moffy.Samples.Event.Delete (deleteEvent)
-import Control.Moffy.Samples.Viewable.Basic (Position, Color(..), LineWidth)
-import Control.Moffy.Samples.Followbox.Event (
-	SigF, ReactF,
-	httpGet, getTimeZone, beginSleep, checkBeginSleep, endSleep,
-	Error(..), raiseError, checkTerminate )
-import Control.Moffy.Samples.Followbox.Clickable (
-	view, click, clickableText, withTextExtents, FontName, FontSize )
-import Control.Moffy.Samples.Followbox.ViewType (
-	View(..), white, Png(..), VText(..), Line(..), Image(..) )
+import Control.Moffy
+import Control.Moffy.Event.Lock
+import Control.Moffy.Samples.Event.Random
+import Control.Moffy.Samples.Event.Delete
+import Control.Moffy.Samples.Event.Mouse qualified as Mouse
+import Control.Moffy.Samples.Event.Area
+import Control.Moffy.Samples.Viewable.Basic
+import Control.Moffy.Samples.Followbox.Event
+import Control.Moffy.Samples.Followbox.Clickable
+import Control.Moffy.Samples.Followbox.ViewType
 import Control.Moffy.Samples.Followbox.TypeSynonym (ErrorMessage)
 import Data.Type.Set
 import Data.Type.Flip ((<$%>), (<*%>))
 import Data.OneOfThem
-import Data.HashMap.Strict qualified as HM
 import Data.Hashable
+import Data.HashMap.Strict qualified as HM
 import Data.Bool
-import Data.ByteString.Char8 qualified as BSC
 import Data.ByteString.Lazy qualified as LBS
+import Data.ByteString.Char8 qualified as BSC
 import Data.Text qualified as T
 import Data.Time (utcToLocalTime, UTCTime)
 import Data.Time.Clock.POSIX (posixSecondsToUTCTime)
@@ -42,9 +38,6 @@ import Data.Aeson (Object, Value(..), eitherDecode)
 import Data.Aeson.KeyMap (toHashMap)
 import Text.Read (readMaybe)
 import Codec.Picture qualified as P
-
-import Control.Moffy.Samples.Event.Mouse qualified as Mouse
-import Control.Moffy.Samples.Event.Area
 
 ---------------------------------------------------------------------------
 
@@ -129,20 +122,11 @@ field = do
 	rfs <- waitFor $ link refreshPos "Refresh"
 	lck <- waitFor $ adjust newLockId
 	let	frame = title <> view rfs
-		refresh = forever do
-			emit Nothing
-			us <- Just . Left <$%> users
-			emit . Just $ Right us
-			waitFor . adjust $ click rfs
-		close i = forever do
-			emit =<< waitFor (withLock lck
-				(adjust $ getRandomR (0, 29) :: ReactF s Int))
-			waitFor . clickArea $ crossArea i
 	emit frame
 	(frame <>) <$%> ((\a b c -> a <> b <> c)
-		<$%> (chooseUser 0 <$%> refresh <*%> close 0)
-		<*%> (chooseUser 1 <$%> refresh <*%> close 1)
-		<*%> (chooseUser 2 <$%> refresh <*%> close 2))
+		<$%> (chooseUser 0 <$%> refresh rfs <*%> close lck 0)
+		<*%> (chooseUser 1 <$%> refresh rfs <*%> close lck 1)
+		<*%> (chooseUser 2 <$%> refresh rfs <*%> close lck 2))
 	where
 	title = text white largeSize titlePos "Who to follow"
 	link p t = clickableText p
@@ -152,6 +136,19 @@ chooseUser :: Int -> Maybe (Either Int [(Png, T.Text)]) -> Int -> View
 chooseUser _ (Just (Left i)) _ = bar $ fromIntegral i
 chooseUser n (Just (Right us)) i = userView n (us !! (i `mod` length us))
 chooseUser _ Nothing _ = View []
+
+refresh :: Clickable s -> SigF s (Maybe (Either Int [(Png, T.Text)])) ()
+refresh rfs = forever do
+	emit Nothing
+	us <- Just . Left <$%> users
+	emit . Just $ Right us
+	waitFor . adjust $ click rfs
+
+close :: LockId -> Int -> SigF s Int ()
+close lck i = forever do
+	emit =<< waitFor
+		(withLock lck (adjust $ getRandomR (0, 29) :: ReactF s Int))
+	waitFor . clickArea $ crossArea i
 
 resetTime :: SigF s View ()
 resetTime = forever do
