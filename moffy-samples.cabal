@@ -5,7 +5,7 @@ cabal-version: 2.2
 -- see: https://github.com/sol/hpack
 
 name:           moffy-samples
-version:        0.1.0.2
+version:        0.1.0.3
 synopsis:       Samples of moffy
 description:    Please see the README on GitHub at <https://github.com/YoshikuniJujo/moffy-samples#readme>
 category:       Control
